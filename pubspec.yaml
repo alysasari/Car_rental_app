@@ -54,6 +54,12 @@ dependencies:
   permission_handler: ^11.0.1
   open_file: ^3.2.1
   provider: ^6.0.5
+  flutter_animate: ^4.5.0
+  animate_do: ^3.0.2
+
+  flutter_localizations:
+    sdk: flutter
+  easy_localization: ^3.0.7
 
 dev_dependencies:
   flutter_test:
@@ -82,7 +88,8 @@ flutter:
     - assets/images/
     - assets/brands/
     - assets/fonts/
-
+   
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

@@ -116,149 +116,178 @@ class _NearbyScreenState extends State<NearbyScreen>
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-
-      // 🌈 Gradient AppBar
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: ThemeProvider.appBarGradient,
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          'Nearby Cars',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 22,
-          ),
-        ),
-      ),
-
-      // 🌈 Gradient background body
       body: Container(
         decoration: ThemeProvider.backgroundGradient,
         child: loading
             ? const Center(
                 child: CircularProgressIndicator(color: Colors.white),
               )
-            : list.isEmpty
-                ? const Center(
-                    child: Text(
-                      'No cars found nearby',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white70,
-                        fontWeight: FontWeight.w500,
+            : Column(
+                children: [
+                  // 🌈 HEADER MIRIP HOMESCREEN
+                  Container(
+                    height: 170,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: isDark
+                            ? [Colors.blueGrey.shade800, Colors.blueGrey.shade600]
+                            : [const Color(0xFF4B6EF6), const Color(0xFF89A9FF)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: SafeArea(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.location_on_rounded,
+                                  color: Colors.white, size: 26),
+                              SizedBox(width: 6),
+                              Text(
+                                'Nearby Cars',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            'Top 5 nearest cars to your location',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.9),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 120),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  if (list.isEmpty)
+                    const Expanded(
+                      child: Center(
                         child: Text(
-                          "Top 5 nearest cars to your location",
+                          'No cars found nearby',
                           style: TextStyle(
                             fontSize: 16,
+                            color: Colors.white70,
                             fontWeight: FontWeight.w500,
-                            color: isDark ? Colors.grey[300] : Colors.white,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Expanded(
-                        child: ScaleTransition(
-                          scale: _zoomAnim,
-                          child: ListView.builder(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            itemCount: list.length,
-                            itemBuilder: (ctx, i) {
-                              final item = list[i];
-                              final CarModel car = item['car'];
-                              final double dist = item['distanceKm'];
+                    )
+                  else
+                    Expanded(
+                      child: ScaleTransition(
+                        scale: _zoomAnim,
+                        child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          itemCount: list.length,
+                          itemBuilder: (ctx, i) {
+                            final item = list[i];
+                            final CarModel car = item['car'];
+                            final double dist = item['distanceKm'];
 
-                              return Container(
-                                margin: const EdgeInsets.only(bottom: 16),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: isDark
-                                        ? [
-                                            Colors.blueGrey.shade900,
-                                            Colors.blueGrey.shade700
-                                          ]
-                                        : [
-                                            Colors.white.withOpacity(0.95),
-                                            Colors.blue.shade50
-                                          ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      blurRadius: 10,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ],
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 16),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: isDark
+                                      ? [
+                                          Colors.blueGrey.shade900,
+                                          Colors.blueGrey.shade700
+                                        ]
+                                      : [
+                                          Colors.white.withOpacity(0.95),
+                                          Colors.blue.shade50
+                                        ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
                                 ),
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.all(12),
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) =>
-                                          CarDetailScreen(car: car),
-                                    ),
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.15),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 4),
                                   ),
-                                  leading: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      car.image,
-                                      width: 70,
-                                      height: 70,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  title: Text(
-                                    car.name,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      color: isDark
-                                          ? Colors.white
-                                          : Colors.black87,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    '${car.location} • ${dist.toStringAsFixed(2)} km',
-                                    style: TextStyle(
-                                      color: isDark
-                                          ? Colors.grey[400]
-                                          : Colors.black54,
-                                    ),
-                                  ),
-                                  trailing: Text(
-                                    'Rp ${car.price}',
-                                    style: TextStyle(
-                                      color: isDark
-                                          ? Colors.lightBlueAccent
-                                          : const Color(0xFF4B6EF6),
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                ],
+                              ),
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(12),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => CarDetailScreen(car: car),
                                   ),
                                 ),
-                              );
-                            },
-                          ),
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    car.image,
+                                    width: 70,
+                                    height: 70,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                title: Text(
+                                  car.name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                    color: isDark
+                                        ? Colors.white
+                                        : Colors.black87,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  '${car.location} • ${dist.toStringAsFixed(2)} km',
+                                  style: TextStyle(
+                                    color: isDark
+                                        ? Colors.grey[400]
+                                        : Colors.black54,
+                                  ),
+                                ),
+                                trailing: Text(
+                                  'Rp ${car.price}',
+                                  style: TextStyle(
+                                    color: isDark
+                                        ? Colors.lightBlueAccent
+                                        : const Color(0xFF4B6EF6),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                ],
+              ),
       ),
     );
   }

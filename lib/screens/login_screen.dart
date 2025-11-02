@@ -1,7 +1,6 @@
 import 'package:car_rental_project/main.dart';
 import 'package:flutter/material.dart';
 import 'package:car_rental_project/services/auth_service.dart';
-import 'package:car_rental_project/screens/forgot_password.dart';
 import 'package:car_rental_project/screens/register_screen.dart';
 import 'package:car_rental_project/database/database_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -77,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
               // 🔹 Gambar mobil di atas
               Image.asset(
                 'assets/images/mobil_onboarding.png',
-                height: 180,
+                height: 170,
                 fit: BoxFit.contain,
               ),
               const SizedBox(height: 30),
@@ -88,9 +87,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: theme.colorScheme.onBackground,
+                  fontSize: 26,
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 6),
+              Text(
+                "Login to continue your journey 🚗",
+                style: TextStyle(
+                  color: theme.colorScheme.onBackground.withOpacity(0.6),
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 35),
 
               // 🔹 Email field
               TextField(
@@ -98,12 +106,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                   labelText: "Email",
                   prefixIcon: const Icon(Icons.email_outlined),
+                  filled: true,
+                  fillColor: theme.colorScheme.surface.withOpacity(0.05),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: theme.colorScheme.primary),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 18),
 
               // 🔹 Password field
               TextField(
@@ -112,23 +126,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                   labelText: "Password",
                   prefixIcon: const Icon(Icons.lock_outline),
+                  filled: true,
+                  fillColor: theme.colorScheme.surface.withOpacity(0.05),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(14),
                   ),
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              // 🔹 Forgot password
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const ForgotPasswordScreen()),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: theme.colorScheme.primary),
+                    borderRadius: BorderRadius.circular(14),
                   ),
-                  child: const Text("Forgot Password?"),
                 ),
               ),
               const SizedBox(height: 25),
@@ -137,28 +143,31 @@ class _LoginScreenState extends State<LoginScreen> {
               ElevatedButton(
                 onPressed: isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.colorScheme.primary,
-                  minimumSize: const Size(double.infinity, 50),
+                  backgroundColor: const Color(0xFF4B6EF6),
+                  minimumSize: const Size(double.infinity, 52),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(14),
                   ),
+                  elevation: 4,
+                  shadowColor: Colors.black26,
                 ),
                 child: isLoading
                     ? const SizedBox(
                         height: 22,
                         width: 22,
-                        child:
-                            CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                        child: CircularProgressIndicator(
+                            color: Colors.white, strokeWidth: 2.5),
                       )
                     : const Text(
                         "Login",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600),
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
 
               // 🔹 Sign Up section
               Row(
@@ -175,10 +184,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       context,
                       MaterialPageRoute(builder: (_) => const RegisterScreen()),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Sign Up",
                       style: TextStyle(
-                        color: theme.colorScheme.primary,
+                        color: Color(0xFF4B6EF6),
                         fontWeight: FontWeight.bold,
                       ),
                     ),

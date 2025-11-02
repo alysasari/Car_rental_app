@@ -1,3 +1,4 @@
+import 'package:car_rental_project/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:car_rental_project/screens/splash_screen.dart';
@@ -14,6 +15,7 @@ import 'package:car_rental_project/theme_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService.init();
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeProvider(),
@@ -32,15 +34,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Car Rent & Go App',
       debugShowCheckedModeBanner: false,
-       theme: themeProvider.lightTheme,
-  darkTheme: themeProvider.darkTheme,
-  themeMode: themeProvider.themeMode,
-     
+      theme: themeProvider.lightTheme,
+      darkTheme: themeProvider.darkTheme,
+      themeMode: themeProvider.themeMode,
       home: const SplashScreen(),
       routes: {
         '/onboarding': (context) => const OnboardingScreen(),
         '/login': (context) => const LoginScreen(),
         '/main': (context) => const MainNav(),
+        '/settings': (context) => const SettingsScreen(),
       },
     );
   }
