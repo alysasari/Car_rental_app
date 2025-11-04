@@ -39,7 +39,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // ===== HEADER =====
+              // HEADER 
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
@@ -63,7 +63,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Back Button (circle)
+                   
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.12),
@@ -81,7 +81,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                     const SizedBox(width: 14),
 
-                    // Title + subtitle
+              
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +113,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
               const SizedBox(height: 20),
 
-              // ===== SUMMARY CARD (car + price) =====
+              // SUMMARY CARD
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
@@ -186,7 +186,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
               const SizedBox(height: 28),
 
-              // ===== Payment Methods section =====
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -202,7 +201,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
               const SizedBox(height: 22),
 
-              // ===== add card button (only for Card) =====
+              
               if (selectedMethod == 'Card') ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -260,7 +259,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
               const SizedBox(height: 34),
 
-              // ===== Pay Now button =====
+              //  Pay Now button 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
@@ -303,7 +302,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  // ===== METHOD TILE (Clickable) =====
+
   Widget _methodTile(String method, IconData icon, bool isDark, Color cardColor, Color accentColor) {
     final bool isSelected = selectedMethod == method;
 

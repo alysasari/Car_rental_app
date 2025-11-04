@@ -53,7 +53,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
       body: SafeArea(
         child: Stack(
           children: [
-            // ===== HEADER (GRADIENT SERAGAM DENGAN HOMESCREEN) =====
+            // HEADER  
             Container(
               height: 160,
               padding: const EdgeInsets.fromLTRB(20, 18, 20, 22),
@@ -91,7 +91,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
               ),
             ),
 
-            // ===== BODY FORM =====
+            //  BODY FORM 
             FadeTransition(
               opacity: _fadeIn,
               child: SlideTransition(

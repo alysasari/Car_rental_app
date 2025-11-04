@@ -54,14 +54,14 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
 
   DateTime _parseDateTime(String date, String time, String tz) {
   try {
-    // Coba parse dengan AM/PM
+  
     return DateFormat('yyyy-MM-dd hh:mm a').parse('$date $time');
   } catch (_) {
     try {
-      // Coba parse format 24 jam (tanpa AM/PM)
+   
       return DateFormat('yyyy-MM-dd HH:mm').parse('$date $time');
     } catch (_) {
-      // Kalau gagal semua, fallback ke jam sekarang
+    
       return DateTime.now();
     }
   }
@@ -138,7 +138,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ✨ Car Info Card
+            //  Car Info Card
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -262,7 +262,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
             ),
             const SizedBox(height: 24),
 
-            // 💳 Payment & Currency
+            // Payment & Currency
             Container(
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
@@ -320,7 +320,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
 
             const SizedBox(height: 40),
 
-            // ✅ Confirm Button
+            // Confirm Button
             SizedBox(
               width: double.infinity,
               height: 55,

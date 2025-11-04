@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // 🎞️ Animasi muncul pelan-pelan
+    
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1200),
@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // 🚗 Logo / Image
+              //  Logo / Image
               Image.asset(
                 'assets/images/mobil_onboarding.png',
                 height: 120,
@@ -64,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               const SizedBox(height: 20),
 
-              // 🩵 App Titlel
+              // App Title
               Text(
                 'Car Rent & Go',
                 style: TextStyle(
@@ -76,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               const SizedBox(height: 14),
 
-              // ✨ Loading Indicator
+              //Loading Indicator
               CircularProgressIndicator(
                 color: theme.colorScheme.primary,
                 strokeWidth: 2.6,

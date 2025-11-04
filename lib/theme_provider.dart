@@ -25,11 +25,11 @@ class ThemeProvider extends ChangeNotifier {
 
   ThemeMode get themeMode => _isDarkMode ? ThemeMode.dark : ThemeMode.light;
 
-  // 🌙 Dark Theme — Deep Navy + Royal Blue Gradient
+  // Dark Theme
   ThemeData get darkTheme => ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF0A0F1F), // deep navy background
+        scaffoldBackgroundColor: const Color(0xFF0A0F1F), 
         colorScheme: const ColorScheme.dark(
           primary: Color(0xFF2563EB), // royal blue
           secondary: Color(0xFF3B82F6),
@@ -37,7 +37,7 @@ class ThemeProvider extends ChangeNotifier {
         ),
         cardColor: const Color(0xFF1C2434),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent, // visible gradient
+          backgroundColor: Colors.transparent, 
           elevation: 0,
           titleTextStyle: TextStyle(
             color: Colors.white,
@@ -75,7 +75,7 @@ class ThemeProvider extends ChangeNotifier {
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             ),
-            // gradient base for ElevatedButton
+           
             backgroundColor: MaterialStateProperty.all(Colors.transparent),
             shadowColor: MaterialStateProperty.all(Colors.black45),
             foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -83,7 +83,7 @@ class ThemeProvider extends ChangeNotifier {
         ),
       );
 
-  // ☀️ Light Theme — clean pastel blue
+  // Light Theme
   ThemeData get lightTheme => ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
@@ -123,7 +123,7 @@ class ThemeProvider extends ChangeNotifier {
         ),
       );
 
-  // 🎨 Widget helper untuk AppBar gradient & Button gradient
+  //  Widget helper untuk AppBar gradient & Button gradient
   static BoxDecoration get appBarGradient => const BoxDecoration(
         gradient: LinearGradient(
           colors: [Color(0xFF2563EB), Color(0xFF1E3A8A)],

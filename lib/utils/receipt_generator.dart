@@ -11,7 +11,6 @@ class ReceiptGenerator {
   static Future<void> generatePDF(Order order) async {
     final pdf = pw.Document();
 
-    // 📄 Load font dari assets
     final robotoData = await rootBundle.load('assets/fonts/Roboto-Regular.ttf');
     final robotoBoldData = await rootBundle.load('assets/fonts/Roboto-Bold.ttf');
     final roboto = pw.Font.ttf(robotoData);
@@ -66,13 +65,13 @@ class ReceiptGenerator {
       ),
     );
 
-    // 🛑 Minta izin akses penyimpanan
+    //  Minta izin akses penyimpanan
     var status = await Permission.storage.request();
     if (!status.isGranted) {
       throw Exception('Storage permission not granted');
     }
 
-    // 💾 Tentukan folder Download yang aman
+    // Tentukan folder Download yang aman
     Directory? directory;
     if (Platform.isAndroid) {
       directory = Directory('/storage/emulated/0/Download');
@@ -85,7 +84,7 @@ class ReceiptGenerator {
 
     final filePath = "${directory.path}/Booking_Receipt_${order.id}.pdf";
 
-    // 🔹 Simpan PDF
+    //  Simpan PDF
     final pdfBytes = await pdf.save();
     final file = File(filePath);
     await file.writeAsBytes(pdfBytes);

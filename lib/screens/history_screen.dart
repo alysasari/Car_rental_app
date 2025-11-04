@@ -1,4 +1,4 @@
-// lib/screens/history_screen.dart
+
 import 'dart:ui';
 
 import 'package:car_rental_project/theme_provider.dart';
@@ -39,7 +39,7 @@ class _HistoryScreenState extends State<HistoryScreen>
 
   Future<void> _loadHistory() async {
     final db = DatabaseHelper.instance;
-    final result = await db.getUserHistory(1); // nanti ganti ke user aktif
+    final result = await db.getUserHistory(1); 
     await Future.delayed(const Duration(milliseconds: 300));
     setState(() {
       orders = result.map((e) => Order.fromMap(e)).toList();
@@ -69,8 +69,7 @@ class _HistoryScreenState extends State<HistoryScreen>
       body: SafeArea(
         child: Stack(
           children: [
-            // HEADER mirip HomeScreen
-            // bagian header di HistoryScreen
+        
 Container(
   height: 160,
   padding: const EdgeInsets.fromLTRB(20, 18, 20, 22),

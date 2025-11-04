@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           children: [
-            // 🌈 HEADER GRADIENT USER INFO (Match Home Gradient)
+            // HEADER 
             Container(
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 26),
               decoration: BoxDecoration(
@@ -101,7 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             const SizedBox(height: 30),
 
-            // 🌙 Dark Mode Switch
+            //  Dark Mode Switch
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -125,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             const SizedBox(height: 16),
 
-            // ⚙️ Settings Card
+            //  Settings Card
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -149,7 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             const SizedBox(height: 40),
 
-            // 🚪 Logout Button
+            //  Logout Button
             SizedBox(
               height: 52,
               child: ElevatedButton.icon(

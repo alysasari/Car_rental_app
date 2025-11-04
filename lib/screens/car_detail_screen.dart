@@ -1,4 +1,4 @@
-// lib/screens/car_detail_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -22,7 +22,7 @@ class CarDetailScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            // 🖼️ Gambar interaktif
+           
             Center(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
@@ -46,7 +46,7 @@ class CarDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // 🏷️ Nama & harga
+            //  Nama & harga
             Text(
               car.name,
               style: const TextStyle(
@@ -68,7 +68,7 @@ class CarDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // 🚗 Info Row (background biru, ikon & teks putih)
+  
             Row(
               children: [
                 _infoBox(Icons.settings, car.transmission),
@@ -80,14 +80,14 @@ class CarDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // 📝 Deskripsi
+            //  Deskripsi
             Text(
               car.description,
               style: const TextStyle(fontSize: 15, height: 1.4),
             ),
             const SizedBox(height: 24),
 
-            // 🗺️ Embedded Map
+            // Embedded Map
             if (car.latitude != null && car.longitude != null)
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
@@ -126,7 +126,7 @@ class CarDetailScreen extends StatelessWidget {
               ),
             const SizedBox(height: 13),
 
-            // 🔵 Tombol Book Now
+            //  Tombol Book Now
            ElevatedButton(
   onPressed: () {
     Navigator.push(
@@ -150,7 +150,7 @@ class CarDetailScreen extends StatelessWidget {
 ),
             const SizedBox(height: 12),
 
-            // 🗺️ Tombol buka lokasi eksternal
+            // Tombol buka lokasi eksternal
             TextButton.icon(
               onPressed: () async {
                 if (car.latitude != null && car.longitude != null) {
@@ -182,7 +182,7 @@ class CarDetailScreen extends StatelessWidget {
     );
   }
 
-  // 🔧 Info Box (Biru, teks & ikon putih)
+  // Info Box 
   Widget _infoBox(IconData icon, String text) {
     return Expanded(
       child: Container(

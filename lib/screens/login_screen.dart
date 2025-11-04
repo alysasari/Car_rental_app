@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // 🔹 Gambar mobil di atas
+              //  Gambar mobil di atas
               Image.asset(
                 'assets/images/mobil_onboarding.png',
                 height: 170,
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 30),
 
-              // 🔹 Welcome text
+              //  Welcome text
               Text(
                 "Welcome Back!",
                 style: theme.textTheme.headlineSmall?.copyWith(
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 35),
 
-              // 🔹 Email field
+              //  Email field
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 18),
 
-              // 🔹 Password field
+              //  Password field
               TextField(
                 controller: passwordController,
                 obscureText: true,
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 25),
 
-              // 🔹 Login button
+              //  Login button
               ElevatedButton(
                 onPressed: isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 25),
 
-              // 🔹 Sign Up section
+              // Sign Up section
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

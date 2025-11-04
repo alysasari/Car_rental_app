@@ -10,9 +10,7 @@ class DatabaseHelper {
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
-  // =========================
-  // INIT DATABASE
-  // =========================
+ 
   Future<Database> get database async {
     _database ??= await _initDatabase();
     return _database!;
@@ -32,7 +30,7 @@ class DatabaseHelper {
   Future<void> _onCreate(Database db, int version) async {
     log("🧩 Creating tables...");
 
-    // 👤 USERS TABLE
+ 
     await db.execute('''
       CREATE TABLE users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,7 +40,6 @@ class DatabaseHelper {
       )
     ''');
 
-    // 🚗 CARS TABLE
     await db.execute('''
       CREATE TABLE cars (
         id INTEGER PRIMARY KEY,
@@ -61,7 +58,7 @@ class DatabaseHelper {
       )
     ''');
 
-    // 🧾 ORDERS TABLE
+ 
     await db.execute('''
       CREATE TABLE orders (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -76,7 +73,7 @@ class DatabaseHelper {
       )
     ''');
 
-    // 💳 PAYMENTS TABLE
+  
     await db.execute('''
       CREATE TABLE payments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -89,7 +86,7 @@ class DatabaseHelper {
       )
     ''');
 
-    // 🧾 RECEIPTS TABLE (STRUK)
+  
     await db.execute('''
       CREATE TABLE receipts (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -100,7 +97,6 @@ class DatabaseHelper {
       )
     ''');
 
-    // 💬 FEEDBACK TABLE
     await db.execute('''
       CREATE TABLE feedbacks (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -114,9 +110,9 @@ class DatabaseHelper {
     log("✅ Semua tabel berhasil dibuat");
   }
 
-  // =========================
+
   // USER
-  // =========================
+  
   Future<int> insertUser(Map<String, dynamic> user) async {
     final db = await database;
     return await db.insert('users', user);
@@ -133,9 +129,9 @@ Future<List<Map<String, dynamic>>> getAllUsers() async {
   final res = await db.query('users');
   return res;
 }
-  // =========================
+  
   // CARS
-  // =========================
+ 
   Future<void> insertCars(List<Map<String, dynamic>> cars) async {
     final db = await database;
     for (var car in cars) {
@@ -148,33 +144,32 @@ Future<List<Map<String, dynamic>>> getAllUsers() async {
     return await db.query('cars');
   }
 
-  // =========================
+ 
   // ORDERS
-  // =========================
+  
   Future<int> insertOrder(Map<String, dynamic> order) async {
     final db = await database;
     return await db.insert('orders', order);
   }
 
-  // =========================
   // PAYMENTS
-  // =========================
+ 
   Future<int> insertPayment(Map<String, dynamic> payment) async {
     final db = await database;
     return await db.insert('payments', payment);
   }
 
-  // =========================
+  
   // RECEIPTS (STRUK)
-  // =========================
+ 
   Future<int> insertReceipt(Map<String, dynamic> receipt) async {
     final db = await database;
     return await db.insert('receipts', receipt);
   }
 
-  // =========================
+  
   // FEEDBACK
-  // =========================
+
   Future<int> insertFeedback(Map<String, dynamic> data) async {
     final db = await database;
     return await db.insert('feedbacks', data);
@@ -198,9 +193,9 @@ Future<List<Map<String, dynamic>>> getAllUsers() async {
 }
 
 
-  // =========================
+
   // HISTORY JOIN (user bookings)
-  // =========================
+ 
   Future<List<Map<String, dynamic>>> getUserHistory(int userId) async {
     final db = await database;
     return await db.rawQuery('''
@@ -225,9 +220,9 @@ Future<List<Map<String, dynamic>>> getAllUsers() async {
     ''', [userId]);
   }
 
-  // =========================
+  
   // RESET ALL (DEBUG)
-  // =========================
+ 
   Future<void> clearAll() async {
     final db = await database;
     await db.delete('users');

@@ -56,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // ===== HEADER =====
+              // HEADER
               Container(
   width: double.infinity, // ✅ pastikan melebar penuh
   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
@@ -79,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     ],
   ),
-  child: SafeArea( // ✅ biar nggak ketabrak status bar
+  child: SafeArea( 
     bottom: false,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,7 +202,7 @@ const SizedBox(height: 40),
 
               const SizedBox(height: 40),
 
-              // ===== REGISTER BUTTON =====
+              //  REGISTER BUTTON 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: AnimatedContainer(
@@ -250,7 +250,7 @@ const SizedBox(height: 40),
 
               const SizedBox(height: 25),
 
-              // ===== FOOTER TEXT =====
+              //  FOOTER TEXT 
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(

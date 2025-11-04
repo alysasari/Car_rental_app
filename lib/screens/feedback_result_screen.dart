@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:car_rental_project/database/database_helper.dart';
 import 'package:car_rental_project/main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:animate_do/animate_do.dart'; // 🪄 animasi smooth
+import 'package:animate_do/animate_do.dart'; 
 
 class FeedbackResultScreen extends StatefulWidget {
   const FeedbackResultScreen({super.key});
@@ -119,7 +119,6 @@ class _FeedbackResultScreenState extends State<FeedbackResultScreen> {
                               .split('.')[0]
                           : '';
 
-                      // animasi slide dari bawah + fade in tiap item
                       return FadeInUp(
                         duration:
                             Duration(milliseconds: 200 + (index * 80)), // delay bertahap

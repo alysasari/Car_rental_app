@@ -1,4 +1,4 @@
-// lib/screens/settings_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:car_rental_project/theme_provider.dart';
@@ -17,7 +17,7 @@ class SettingsScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // ===== HEADER =====
+            //HEADER 
             Container(
               padding: const EdgeInsets.fromLTRB(20, 18, 20, 22),
               decoration: BoxDecoration(
@@ -72,7 +72,7 @@ class SettingsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  // === Privacy Policy ===
+                 
                   _settingTile(
                     context: context,
                     icon: Icons.policy_outlined,
@@ -86,7 +86,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  // === Terms & Conditions ===
+               
                   _settingTile(
                     context: context,
                     icon: Icons.article_outlined,

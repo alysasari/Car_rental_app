@@ -94,7 +94,7 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen>
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
               children: [
-                // 🔹 Car image with rounded corners
+            
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: order.carImage.isNotEmpty
@@ -113,7 +113,7 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen>
                 ),
                 const SizedBox(height: 20),
 
-                // 🔹 Card Section for Info
+                // Card Section for Info
                 Container(
                   width: double.infinity,
                   padding:
@@ -158,7 +158,7 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen>
 
                 const SizedBox(height: 30),
 
-                // 🔹 Button
+                //  Button
                 GestureDetector(
                   onTap: () async {
                     try {

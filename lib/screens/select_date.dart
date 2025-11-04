@@ -57,7 +57,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // ===== HEADER =====
+              //  HEADER
               Container(
                 width: double.infinity,
                 padding:
@@ -121,7 +121,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
               const SizedBox(height: 25),
 
-              // ===== DATE PICKER =====
+              //DATE PICKER 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
@@ -165,9 +165,9 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
       MaterialStateProperty.resolveWith<Color>(
     (states) {
       if (states.contains(MaterialState.selected)) {
-        return Colors.redAccent; // warna untuk tgl dipilih
+        return Colors.redAccent; 
       }
-      // Pastikan today tidak ikut diwarnai
+   
       return Colors.transparent;
     },
   ),
@@ -187,7 +187,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
               const SizedBox(height: 25),
 
-              // ===== TIME PICKER =====
+              // TIME PICKER
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: GestureDetector(
@@ -246,7 +246,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
               const SizedBox(height: 40),
 
-              // ===== CONTINUE BUTTON =====
+              //CONTINUE BUTTON 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: AnimatedOpacity(

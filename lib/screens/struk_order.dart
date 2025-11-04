@@ -21,7 +21,7 @@ class StrukOrder extends StatelessWidget {
             children: [
               const SizedBox(height: 20),
 
-              // ✅ Animated Success Icon
+              // Animated Success Icon
               Container(
                 width: 90,
                 height: 90,
@@ -57,7 +57,7 @@ class StrukOrder extends StatelessWidget {
 
               const SizedBox(height: 28),
 
-              // 🧾 Receipt Card
+              // Receipt Card
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 22),
@@ -112,7 +112,7 @@ class StrukOrder extends StatelessWidget {
 
               const SizedBox(height: 40),
 
-              // 🔙 Back Button
+              // Back Button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

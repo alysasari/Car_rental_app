@@ -16,7 +16,7 @@ class AuthService {
       return null; // email sudah digunakan
     }
 
-    // 🔐 Enkripsi password sebelum disimpan
+    // Enkripsi password sebelum disimpan
     final encryptedPassword = EncryptionHelper.encryptText(password);
 
     // Simpan ke database
@@ -44,7 +44,7 @@ class AuthService {
 
     print("🔍 Login attempt for: $email");
 
-  // ✅ Cek semua user di database untuk debugging
+  //  Cek semua user di database untuk debugging
   final allUsers = await dbHelper.getAllUsers();
   print("🧠 ALL USERS: $allUsers");
 
@@ -52,7 +52,7 @@ class AuthService {
     final user = await dbHelper.getUserByEmail(email);
     if (user == null) return null;
 
-    // 🔐 Dekripsi password dari database
+    // Dekripsi password dari database
     final decryptedPassword =
         EncryptionHelper.decryptText(user['password_hash']);
      print("🔓 Decrypted password: $decryptedPassword");

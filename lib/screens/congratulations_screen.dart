@@ -72,7 +72,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen>
                     ),
                     const SizedBox(height: 28),
 
-                    // 🥳 Title
+                    
                     Text(
                       "Congratulations!",
                       style: TextStyle(
@@ -84,7 +84,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen>
                     ),
                     const SizedBox(height: 12),
 
-                    // ✨ Subtitle
+                
                     Text(
                       "Your process was successful.",
                       style: TextStyle(
@@ -95,7 +95,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen>
 
                     const SizedBox(height: 50),
 
-                    // 🪩 Card-styled Button
+               
                     Card(
                       elevation: 8,
                       shadowColor: Colors.blueAccent.withOpacity(0.3),
@@ -138,7 +138,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen>
 
                     const SizedBox(height: 30),
 
-                    // ✨ Soft glow animation
+                   
                     AnimatedBuilder(
                       animation: _controller,
                       builder: (context, _) {
