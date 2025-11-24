@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:car_rental_project/models/order_model.dart';
+import 'package:car_rental_project/database/database_helper.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:open_file/open_file.dart';
@@ -88,6 +89,17 @@ class ReceiptGenerator {
     final pdfBytes = await pdf.save();
     final file = File(filePath);
     await file.writeAsBytes(pdfBytes);
+
+    // Simpan path struk ke database
+    try {
+      await DatabaseHelper.instance.insertReceipt({
+        'order_id': order.id,
+        'pdf_path': filePath,
+        'created_at': DateTime.now().toIso8601String(),
+      });
+    } catch (e) {
+      print('Failed to insert receipt record: $e');
+    }
 
     print("✅ Receipt saved at: $filePath");
 

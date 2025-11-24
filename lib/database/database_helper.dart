@@ -154,6 +154,12 @@ Future<List<Map<String, dynamic>>> getAllUsers() async {
     return await db.query('cars');
   }
 
+  Future<Map<String, dynamic>?> getCarById(int id) async {
+    final db = await database;
+    final res = await db.query('cars', where: 'id = ?', whereArgs: [id], limit: 1);
+    return res.isNotEmpty ? res.first : null;
+  }
+
  
   // ORDERS
   
@@ -211,6 +217,7 @@ Future<List<Map<String, dynamic>>> getAllUsers() async {
     return await db.rawQuery('''
       SELECT 
         o.id AS order_id,
+        o.car_id AS car_id,
         c.name AS car_name,
         c.image as car_image,
         o.start_date,
@@ -220,13 +227,14 @@ Future<List<Map<String, dynamic>>> getAllUsers() async {
         p.method,
         p.amount,
         p.currency,
-        r.created_at AS receipt_date
+          r.created_at AS receipt_date,
+          r.pdf_path
       FROM orders o
-      JOIN cars c ON o.car_id = c.id
+      LEFT JOIN cars c ON o.car_id = c.id
       LEFT JOIN payments p ON p.order_id = o.id
       LEFT JOIN receipts r ON r.order_id = o.id
       WHERE o.user_id = ?
-      ORDER BY o.id DESC
+        ORDER BY o.id DESC
     ''', [userId]);
   }
 
@@ -249,4 +257,13 @@ Future<List<Map<String, dynamic>>> getAllUsers() async {
   log("📦 Semua data orders: $res");
   return res;
   }
+
+  Future<List<Map<String, dynamic>>> getAllReceipts() async {
+    final db = await database;
+    final res = await db.query('receipts');
+    log("📦 Semua data receipts: $res");
+    return res;
+  }
+
+  Future getOrders() async {}
 }

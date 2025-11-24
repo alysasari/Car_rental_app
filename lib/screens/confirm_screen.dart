@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:car_rental_project/models/car_model.dart';
 import 'package:car_rental_project/database/database_helper.dart';
 import 'package:car_rental_project/screens/struk_order.dart';
+import '../utils/session_manager.dart';
 
 class ConfirmScreen extends StatefulWidget {
   final CarModel car;
@@ -342,16 +343,45 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     'payment': widget.paymentMethod,
                   };
 
-                  final newOrder = {
-                    'user_id': 1,
-                    'car_id': widget.car.id,
-                    'start_date': convertedDateTime.toIso8601String(),
-                    'end_date': convertedDateTime
-                        .add(const Duration(days: 1))
-                        .toIso8601String(),
-                    'pickup_time': DateFormat('hh:mm a').format(convertedDateTime),
-                    'status': 'Confirmed',
-                  };
+                    final userData = await SessionManager.getUserData();
+                    final idStr = userData['id'];
+                    final userId = int.tryParse(idStr ?? '') ?? 1;
+
+                    // Ensure the car exists in the local `cars` table so history JOIN can find name/image
+                    try {
+                      final carIdInt = int.tryParse(widget.car.id) ?? widget.car.id.hashCode;
+                      await DatabaseHelper.instance.insertCars([
+                        {
+                          'id': carIdInt,
+                          'name': widget.car.name,
+                          'brand': widget.car.brand,
+                          'model': widget.car.model,
+                          'year': widget.car.year,
+                          'price': widget.car.price,
+                          'image': widget.car.image,
+                          'location': widget.car.location,
+                          'latitude': widget.car.latitude ?? 0.0,
+                          'longitude': widget.car.longitude ?? 0.0,
+                          'transmission': widget.car.transmission,
+                          'seats': widget.car.seats,
+                          'description': widget.car.description,
+                        }
+                      ]);
+                    } catch (e) {
+                      // non-fatal; continue to create order even if car insert fails
+                      print('Warning: failed to upsert car before order: $e');
+                    }
+
+                    final newOrder = {
+                      'user_id': userId,
+                      'car_id': int.tryParse(widget.car.id) ?? widget.car.id.hashCode,
+                      'start_date': convertedDateTime.toIso8601String(),
+                      'end_date': convertedDateTime
+                          .add(const Duration(days: 1))
+                          .toIso8601String(),
+                      'pickup_time': DateFormat('hh:mm a').format(convertedDateTime),
+                      'status': 'Confirmed',
+                    };
 
                   final orderId =
                       await DatabaseHelper.instance.insertOrder(newOrder);

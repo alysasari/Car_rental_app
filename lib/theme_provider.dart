@@ -31,11 +31,11 @@ class ThemeProvider extends ChangeNotifier {
         brightness: Brightness.dark,
         scaffoldBackgroundColor: const Color(0xFF0A0F1F), 
         colorScheme: const ColorScheme.dark(
-          primary: Color(0xFF2563EB), // royal blue
+          primary: Color(0xFF2563EB), 
           secondary: Color(0xFF3B82F6),
           surface: Color(0xFF111827),
         ),
-        cardColor: const Color(0xFF1C2434),
+        cardColor: const Color.fromARGB(255, 52, 66, 95),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent, 
           elevation: 0,

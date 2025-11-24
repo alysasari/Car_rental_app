@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:car_rental_project/models/order_model.dart';
 import '../utils/receipt_generator.dart';
+import 'package:open_file/open_file.dart';
 
 class HistoryDetailScreen extends StatefulWidget {
   final Order order;
@@ -162,17 +163,21 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen>
                 GestureDetector(
                   onTap: () async {
                     try {
-                      await ReceiptGenerator.generatePDF(order);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content:
-                                Text("✅ Receipt downloaded successfully!")),
-                      );
+                      if (order.receiptPath.isNotEmpty) {
+                        final res = await OpenFile.open(order.receiptPath);
+                        print('Open existing receipt: $res');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Opening existing receipt")),
+                        );
+                      } else {
+                        await ReceiptGenerator.generatePDF(order);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("✅ Receipt downloaded successfully!")),
+                        );
+                      }
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content:
-                                Text("❌ Failed to download receipt: $e")),
+                        SnackBar(content: Text("❌ Failed to open/download receipt: $e")),
                       );
                     }
                   },

@@ -1,10 +1,9 @@
-// lib/screens/feedback_screen.dart
-import 'package:car_rental_project/database/database_helper.dart';
-import 'package:car_rental_project/screens/feedback_result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../theme_provider.dart';
+import '../database/database_helper.dart';
+import '../utils/session_manager.dart';
+import 'feedback_result_screen.dart';
 
 class FeedbackScreen extends StatefulWidget {
   const FeedbackScreen({super.key});
@@ -51,71 +50,74 @@ class _FeedbackScreenState extends State<FeedbackScreen>
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF0B1220) : Colors.grey[100],
       body: SafeArea(
-        child: Stack(
-          children: [
-            // HEADER  
-            Container(
-              height: 160,
-              padding: const EdgeInsets.fromLTRB(20, 18, 20, 22),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: isDark
-                      ? [const Color(0xFF0F172A), const Color(0xFF071028)]
-                      : [const Color(0xFF4B6EF6), const Color(0xFF93C5FD)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(36)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(isDark ? 0.35 : 0.08),
-                    blurRadius: 12,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: const Center(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Text(
-                    "Pesan & Kesan",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 0.6,
+        child: CustomScrollView(
+          slivers: [
+           
+            SliverAppBar(
+              expandedHeight: 110,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              pinned: false,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF4A90E2),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(22),
+                      bottomRight: Radius.circular(22),
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 10,
+                        offset: Offset(0, 4),
+                        color: Colors.black26,
+                      ),
+                    ],
+                  ),
+                  padding: const EdgeInsets.fromLTRB(20, 38, 20, 18),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Feedback",
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: 0.8,
+                        ),
+                      ),
+                      SizedBox(height: 6),
+                     
+                    
+                    ],
                   ),
                 ),
               ),
             ),
 
-            //  BODY FORM 
-            FadeTransition(
-              opacity: _fadeIn,
-              child: SlideTransition(
-                position: _slideIn,
-                child: ListView(
-                  padding: const EdgeInsets.fromLTRB(16, 200, 16, 30),
-                  children: [
-                    Card(
+            
+            SliverToBoxAdapter(
+              child: FadeTransition(
+                opacity: _fadeIn,
+                child: SlideTransition(
+                  position: _slideIn,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 30),
+                    child: Card(
                       elevation: 10,
-                      color:
-                          isDark ? const Color(0xFF1C2431) : Colors.white,
+                      color: isDark ? const Color(0xFF1C2431) : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      shadowColor: isDark
-                          ? Colors.black54
-                          : Colors.grey.withOpacity(0.3),
+                      shadowColor:
+                          isDark ? Colors.black54 : Colors.grey.withOpacity(0.3),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 22, vertical: 26),
                         child: Form(
                           key: _formKey,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               CircleAvatar(
                                 radius: 38,
@@ -139,17 +141,17 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                                       : Colors.grey.shade900,
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 6),
                               Text(
                                 "Kami ingin tahu kesan dan saran kamu ✨",
                                 style: TextStyle(
+                                  fontSize: 14,
                                   color: isDark
                                       ? Colors.white70
                                       : Colors.grey.shade600,
-                                  fontSize: 14,
                                 ),
                               ),
-                              const SizedBox(height: 26),
+                              const SizedBox(height: 28),
 
                               // ⭐ Rating
                               Text(
@@ -164,94 +166,74 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: List.generate(5, (index) {
                                   return IconButton(
-                                    onPressed: () => setState(
-                                        () => _rating = index + 1.0),
+                                    onPressed: () =>
+                                        setState(() => _rating = index + 1.0),
                                     icon: Icon(
                                       index < _rating
                                           ? Icons.star_rounded
                                           : Icons.star_border_rounded,
                                       color: Colors.amber,
-                                      size: 36,
+                                      size: 34,
                                     ),
                                   );
                                 }),
                               ),
                               const SizedBox(height: 25),
 
-                              // 💬 Feedback Field
+                              // 📝 Input
                               TextFormField(
                                 controller: _feedbackCtrl,
                                 maxLines: 5,
-                                style: TextStyle(
-                                  color: isDark
-                                      ? Colors.white
-                                      : Colors.grey.shade900,
-                                ),
                                 decoration: InputDecoration(
-                                  labelText:
-                                      'Tulis saran atau kesanmu',
-                                  labelStyle: TextStyle(
-                                    color: isDark
-                                        ? Colors.white70
-                                        : Colors.grey.shade700,
-                                  ),
+                                  labelText: 'Tulis saran atau kesanmu',
                                   alignLabelWithHint: true,
                                   prefixIcon: const Icon(
-                                    Icons.edit_note_outlined,
-                                    color: Colors.grey,
-                                  ),
+                                      Icons.edit_note_rounded, color: Colors.grey),
                                   filled: true,
                                   fillColor: isDark
-                                      ? Colors.white.withOpacity(0.05)
+                                      ? Colors.white.withOpacity(0.07)
                                       : Colors.blue.shade50.withOpacity(0.4),
                                   border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                      color: isDark
-                                          ? Colors.white24
-                                          : Colors.blue.shade200,
-                                    ),
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                 ),
-                                validator: (v) =>
-                                    v == null || v.isEmpty
-                                        ? 'Tuliskan pendapatmu minimal sedikit ya!'
-                                        : null,
+                                validator: (v) => v == null || v.isEmpty
+                                    ? 'Tuliskan sedikit pendapatmu!'
+                                    : null,
                               ),
                               const SizedBox(height: 35),
 
-                              // 🚀 Button Kirim
+                              //  Button
                               SizedBox(
                                 width: double.infinity,
                                 height: 52,
                                 child: ElevatedButton.icon(
+                                  icon: const Icon(Icons.send_rounded),
+                                  label: const Text("Kirim Feedback",
+                                      style: TextStyle(fontSize: 16)),
                                   onPressed: () async {
-                                    if (_formKey.currentState!
-                                        .validate()) {
-                                      await DatabaseHelper.instance
-                                          .insertFeedback({
-                                        'user_id': 1,
+                                    if (_formKey.currentState!.validate()) {
+                                      final user =
+                                          await SessionManager.getUserData();
+                                      final userId =
+                                          int.tryParse(user['id'] ?? '') ?? 1;
+
+                                      await DatabaseHelper.instance.insertFeedback({
+                                        'user_id': userId,
                                         'message': _feedbackCtrl.text,
-                                        'created_at': DateTime.now()
-                                            .toIso8601String(),
+                                        'created_at': DateTime.now().toIso8601String(),
                                       });
 
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
+                                      ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           content: Text(
                                               '🎉 Terima kasih! Feedback kamu terkirim.'),
                                           backgroundColor: Colors.green,
                                         ),
                                       );
-
-                                      _feedbackCtrl.clear();
-                                      setState(() => _rating = 4.0);
 
                                       Navigator.pushReplacement(
                                         context,
@@ -262,32 +244,21 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                                       );
                                     }
                                   },
-                                  icon: const Icon(Icons.send_rounded,
-                                      color: Colors.white),
-                                  label: const Text(
-                                    'Kirim Feedback',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16),
-                                  ),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        const Color(0xFF4B6EF6),
+                                    backgroundColor: const Color(0xFF4B6EF6),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12),
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
                                     elevation: 5,
-                                    shadowColor: Colors.blueAccent,
                                   ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),
                       ),
-                    ).animate().fadeIn(duration: 600.ms).moveY(begin: 40, end: 0),
-                  ],
+                    ),
+                  ),
                 ),
               ),
             ),
