@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'package:car_rental_project/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:car_rental_project/utils/session_manager.dart';
+import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,6 +16,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   String userName = '';
   String userEmail = '';
+  String? profilePhotoPath;
 
   @override
   void initState() {
@@ -25,12 +29,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       userName = prefs.getString('userName') ?? 'Bunga';
       userEmail = prefs.getString('userEmail') ?? 'bunga@gmail.com';
+      profilePhotoPath = prefs.getString('profile_photo');
     });
   }
 
   Future<void> _logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    await SessionManager.clearSession();
     if (mounted) {
       Navigator.pushReplacementNamed(context, '/login');
     }
@@ -69,31 +73,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/profile.png'),
+                    backgroundImage: profilePhotoPath != null && File(profilePhotoPath!).existsSync()
+                        ? FileImage(File(profilePhotoPath!)) as ImageProvider
+                        : const AssetImage('assets/images/profile.png'),
                   ),
                   const SizedBox(width: 20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        userName,
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          userName,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        userEmail,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.white70,
+                        const SizedBox(height: 6),
+                        Text(
+                          userEmail,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.white70,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      final updated = await Navigator.push<bool?>(
+                        context,
+                        MaterialPageRoute(builder: (_) => const EditProfileScreen()),
+                      );
+                      if (updated == true) {
+                        _loadUserData();
+                      }
+                    },
+                    icon: const Icon(Icons.edit, color: Colors.white),
                   ),
                 ],
               ),

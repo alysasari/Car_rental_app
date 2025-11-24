@@ -13,7 +13,7 @@ class AuthService {
     // Cek email sudah terdaftar atau belum
     final existingUser = await dbHelper.getUserByEmail(email);
     if (existingUser != null) {
-      return null; // email sudah digunakan
+      return null; 
     }
 
     // Enkripsi password sebelum disimpan
@@ -70,5 +70,16 @@ class AuthService {
 
   print("❌ Password salah untuk ${user['email']}");
     return null;
+  }
+
+  /// DELETE ACCOUNT
+  static Future<bool> deleteAccount(int id) async {
+    try {
+      final dbHelper = DatabaseHelper.instance;
+      final deleted = await dbHelper.deleteUserById(id);
+      return deleted > 0;
+    } catch (e) {
+      return false;
+    }
   }
 }

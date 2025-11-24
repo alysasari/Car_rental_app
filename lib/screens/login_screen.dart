@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   final dbHelper = DatabaseHelper.instance;
   bool isLoading = false;
+  bool _obscurePassword = true;
 
   Future<void> _login() async {
     final email = emailController.text.trim();
@@ -36,6 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (user != null) {
         final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('id', user['id'].toString());
+        await prefs.setString('name', user['name']);
+        await prefs.setString('email', user['email']);
         await prefs.setString('userName', user['name']);
         await prefs.setString('userEmail', user['email']);
 
@@ -122,10 +126,16 @@ class _LoginScreenState extends State<LoginScreen> {
               //  Password field
               TextField(
                 controller: passwordController,
-                obscureText: true,
+                obscureText: _obscurePassword,
                 decoration: InputDecoration(
                   labelText: "Password",
                   prefixIcon: const Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                  ),
                   filled: true,
                   fillColor: theme.colorScheme.surface.withOpacity(0.05),
                   border: OutlineInputBorder(
@@ -201,3 +211,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+//test

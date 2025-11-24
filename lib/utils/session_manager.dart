@@ -29,7 +29,9 @@ class SessionManager {
 
   static Future<void> clearSession() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    await prefs.remove(_kId);
+    await prefs.remove(_kName);
+    await prefs.remove(_kEmail);
   }
 
   static Future<bool> isLoggedIn() async {
